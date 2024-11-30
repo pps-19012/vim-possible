@@ -7,9 +7,9 @@
 
 void initializeGrid(char grid[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY);
 void placeRandomTarget(char[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY, int &targetX, int &targetY);
-bool movePlayer(char grid[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY, char direction, int yOffset, int xOffset);
+bool movePlayer(char grid[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY, char direction);
 
-bool movePlayer(char grid[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY, char direction, int yOffset, int xOffset)
+bool movePlayer(char grid[GRID_SIZE][GRID_SIZE], int &playerX, int &playerY, char direction)
 {
     bool move = true;
     int originalX = playerX;
@@ -84,9 +84,6 @@ int main()
 {
     std::cout << "Level-1: Use h(left), j(up), k(down), and l(right) to reach X." << '\n';
 
-    int yOffset, xOffset;
-    getCursorPosition(yOffset, xOffset);
-
     char prevGrid[GRID_SIZE][GRID_SIZE];
     char newGrid[GRID_SIZE][GRID_SIZE];
 
@@ -95,7 +92,6 @@ int main()
 
     int targetX, targetY;
 
-    initializeGrid(prevGrid, playerX, playerY);
     initializeGrid(newGrid, playerX, playerY);
 
     placeRandomTarget(newGrid, playerX, playerY, targetX, targetY);
@@ -104,13 +100,17 @@ int main()
     int targetsToReach = 4;
 
     setCursorAppearance(false);
-    displayGrid(newGrid, yOffset, xOffset);
+    displayGrid(newGrid);
+
+    int yOffset, xOffset;
+    getCursorPosition(yOffset, xOffset);
+    xOffset -= GRID_SIZE;
 
     while (targetsReached < targetsToReach)
     {
         char input = _getch();
 
-        if (movePlayer(newGrid, playerX, playerY, input, yOffset, xOffset))
+        if (movePlayer(newGrid, playerX, playerY, input))
         {
             if (playerX == targetX && playerY == targetY)
             {

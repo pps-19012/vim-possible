@@ -40,12 +40,10 @@ void getCursorPosition(int &x, int &y)
         x = csbi.dwCursorPosition.X;
         y = csbi.dwCursorPosition.Y;
     }
-    // std::cout << "X: " << x << " , Y: " << y << '\n';
 }
 
-void displayGrid(char grid[GRID_SIZE][GRID_SIZE], int yOffset, int xOffset)
+void displayGrid(char grid[GRID_SIZE][GRID_SIZE])
 {
-    setCursorPosition(yOffset, xOffset);
     for (int i = 0; i < GRID_SIZE; i++)
     {
         for (int j = 0; j < GRID_SIZE; j++)
